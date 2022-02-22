@@ -8,8 +8,9 @@
 - Script that create, upload and copy 100 blobs from Storage account A to Storage account B, executed on the Windows server as part of  the CD pipeline.
 - Dashboard which monitor the described system.
 
-![Storage Account](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/storageaccount.jpg?raw=true)
 ![Virtual Machine](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/vm.jpg?raw=true)
+![Storage Account](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/storageaccount.jpg?raw=true)
+
 
 ### **Infrastructure as Code (IaC)**
 Infrastructure as Code (IaC) is the management of infrastructure in a descriptive model. Using IaC model generates the same environment every time it is applied.
