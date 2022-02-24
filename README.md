@@ -3,10 +3,14 @@
 ## **Project Description**
 
 ### In this project I implemented below:
-- ARM templates for 2 Storage accounts and Windows server.  
+- ARM templates for 2 Storage accounts. 
+
+- ARM template for Windows Server
 - Azure DevOps Pipeline to build and deploy the Storage accounts and Windows server in continous manner (CI/CD).
 - Script that create, upload and copy 100 blobs from Storage account A to Storage account B, executed on the Windows server as part of  the CD pipeline.
 - Dashboard which monitor the described system.
+
+Storage Account Azure DevOps Pipeline [![Build Status](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_apis/build/status/MorGolanDev.AzureRmPipelineMSEC%20(2)?branchName=main)](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_build/latest?definitionId=3&branchName=main)
 
 ![Virtual Machine](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/vm.jpg?raw=true)
 ![Storage Account](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/storageaccount.jpg?raw=true)

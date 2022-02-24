@@ -23,17 +23,32 @@ steps:
 
 
 #Task 1
-#Create an ARM template for storage account
-#And create 2 storage accounts
+#Create an ARM template for storage account and create 2 storage accounts
+#Deployment via Azure DevOps Pipeline
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountA `
+      New-AzResourceGroupDeployment
+      -Name DeploymentCreateStorageAccountA `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersA.json'
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountB `
+      New-AzResourceGroupDeployment
+      -Name DeploymentCreateStorageAccountB `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersB.json'
+
+#Task 2
+#Create an ARM template for a Windows server (VM)
+#Deployment via Azure DevOps Pipeline
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      New-AzResourceGroupDeployment `
+      -Name DeploymentWindowsServerVM `
+      -ResourceGroupName '$(resourceGroupName)' `
+      -TemplateFile 'WindowsServerTemplate.json' `
+      -TemplateParameterFile 'WindowsServerParameters.json'
