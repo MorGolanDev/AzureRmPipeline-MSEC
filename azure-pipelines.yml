@@ -29,13 +29,11 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment 
-      -Name DeploymentCreateStorageAccountA `
+      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountA `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersA.json'
-      New-AzResourceGroupDeployment 
-      -Name DeploymentCreateStorageAccountB `
+      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountB `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersB.json'
