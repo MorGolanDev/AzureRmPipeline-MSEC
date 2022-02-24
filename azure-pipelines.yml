@@ -1,0 +1,41 @@
+trigger:
+- master
+
+#Use self-hosted agent
+pool: Default
+
+#Root level Variables
+variables:
+  subscriptionName: "MSEC_Candidates_Homeworks"
+  subscriptionID: "a8108c2b-496c-424d-8347-ecc8afb6384c"
+  resourceGroupName: morGolanResourceGroup
+  location: "eastus"
+
+#Connect to the self-hosted agents
+steps:
+- script: hostname
+
+#Use the service connection - GitHub
+- task: GitHubComment@0
+  inputs:
+    gitHubConnection: 'MorGolanDev'
+    repositoryName: 'MorGolanDev/AzureRmPipelineMSEC'
+
+
+#Task 1
+#Create an ARM template for storage account
+#And create 2 storage accounts
+- task: PowerShell@2
+  inputs:
+    targetType: 'inline'
+    script: |
+      New-AzResourceGroupDeployment 
+      -Name DeploymentCreateStorageAccountA `
+      -ResourceGroupName $(resourceGroupName) `
+      -TemplateFile 'StorageAccountTemplate.json' `
+      -TemplateParameterFile 'StorageAccountParametersA.json'
+      New-AzResourceGroupDeployment 
+      -Name DeploymentCreateStorageAccountB `
+      -ResourceGroupName $(resourceGroupName) `
+      -TemplateFile 'StorageAccountTemplate.json' `
+      -TemplateParameterFile 'StorageAccountParametersB.json'
