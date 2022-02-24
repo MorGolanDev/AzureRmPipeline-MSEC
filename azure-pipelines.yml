@@ -10,6 +10,7 @@ variables:
   subscriptionID: "a8108c2b-496c-424d-8347-ecc8afb6384c"
   resourceGroupName: morGolanResourceGroup
   location: "eastus"
+  vmName: "simple-vm"
 
 #Connect to the self-hosted agents
 steps:
@@ -21,34 +22,30 @@ steps:
     gitHubConnection: 'MorGolanDev'
     repositoryName: 'MorGolanDev/AzureRmPipelineMSEC'
 
-
-#Task 1
+#Task 2
 #Create an ARM template for storage account and create 2 storage accounts
 #Deployment via Azure DevOps Pipeline
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment
-      -Name DeploymentCreateStorageAccountA `
-      -ResourceGroupName $(resourceGroupName) `
+      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountA `
+      -ResourceGroupName '$(resourceGroupName)'' `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersA.json'
-      New-AzResourceGroupDeployment
-      -Name DeploymentCreateStorageAccountB `
-      -ResourceGroupName $(resourceGroupName) `
+      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountB `
+      -ResourceGroupName '$(resourceGroupName)'' `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersB.json'
 
-#Task 2
+#Task 3
 #Create an ARM template for a Windows server (VM)
 #Deployment via Azure DevOps Pipeline
 - task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment `
-      -Name DeploymentWindowsServerVM `
+      New-AzResourceGroupDeployment ` -Name DeploymentWindowsServerVM `
       -ResourceGroupName '$(resourceGroupName)' `
       -TemplateFile 'WindowsServerTemplate.json' `
       -TemplateParameterFile 'WindowsServerParameters.json'
