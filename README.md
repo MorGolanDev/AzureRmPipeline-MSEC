@@ -4,11 +4,11 @@
 
 ### In this project I implemented below:
 - ARM templates for 2 Storage accounts. 
-
-- ARM template for Windows Server
+- ARM template for Windows Server.
+- Self-hosted agent to run Azure DevOps Pipeline.
 - Azure DevOps Pipeline to build and deploy the Storage accounts and Windows server in continous manner (CI/CD).
-- Script that create, upload and copy 100 blobs from Storage account A to Storage account B, executed on the Windows server as part of  the CD pipeline.
-- Dashboard which monitor the described system.
+- Script that create, upload and copy 100 blobs from Storage account A to Storage account B, executed on the Windows server as part of  above CD pipeline tool.
+- Monitor Dashboard for the described system.
 
 Storage Account Azure DevOps Pipeline [![Build Status](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_apis/build/status/MorGolanDev.AzureRmPipelineMSEC%20(2)?branchName=main)](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_build/latest?definitionId=3&branchName=main)
 
@@ -27,9 +27,8 @@ Azure Resource Manager is the deployment and management service for Azure. It pr
 
 #### **Resource & Resource Group**
 
-##### **Resource** - A manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources. Resource groups, subscriptions, management groups, and tags are also examples of resources.
-
-##### **Resource Group** - A container that holds related resources for an Azure solution. The resource group can include all the resources for the solution, or only those resources that you want to manage as a group.
+  ##### **Resource** - A manageable item that is available through Azure. Virtual machines, storage accounts, web apps, databases, and virtual networks are examples of resources. Resource groups, subscriptions, management groups, and tags are also examples of resources.
+  ##### **Resource Group** - A container that holds related resources for an Azure solution. The resource group can include all the resources for the solution, or only those resources that you want to manage as a group.
 
 ### **ARM Templates**
 A JavaScript Object Notation (JSON) file that defines one or more resources to deploy to a resource group, subscription, management group, or tenant. The template can be used to deploy the resources consistently and repeatedly.
@@ -39,3 +38,9 @@ An Azure storage account contains all of your Azure Storage data objects, includ
 
 ### **Windows Server**
 Windows Server is the platform for building an infrastructure of connected applications, networks, and web services, from the workgroup to the data center.
+
+### **Azure Pipelines agents**
+To build your code or deploy your software using Azure Pipelines, you need at least one agent.
+
+#### **Self-hosted agents**
+An agent that you set up and manage on your own to run jobs is a self-hosted agent. You can use self-hosted agents in Azure Pipelines or Azure DevOps Server.
