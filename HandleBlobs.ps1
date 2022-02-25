@@ -16,6 +16,8 @@ Try
 {
    $containerSrcCheck = Get-AzStorageContainer -Context $srcStorageAccountContext
    $containerDestCheck = Get-AzStorageContainer -Context $destStorageAccountContext
+   Write-Output $containerSrcCheck
+   Write-Output $containerDestCheck
 }
 Catch
 {
@@ -39,5 +41,8 @@ Get-ChildItem -Path C:\MSEC\blobs | Set-AzStorageBlobContent -Container $srcCont
 -Context $srcContext -Force
 $sourcecontainerContext = New-AzStorageContainerSASToken -Context $srcStorageAccountContext -Name sourcecontainer -Permission racwdl -FullUri
 $destcontainerContext = New-AzStorageContainerSASToken -Context $destStorageAccountContext -Name destcontainer -Permission racwdl -FullUri
+Write-Output $sourcecontainerContext
+Write-Output $destcontainerContext
+
 #Copy 100 blob
 azcopy copy "https://storageacount4a.blob.core.windows.net/sourcecontainer?"+$sourcecontainerContext "https://storageacount4b.blob.core.windows.net/destcontainer?"+$destcontainerContext --recursive
