@@ -8,41 +8,37 @@ $srcStorageAccountName = "storageacount4a"
 $destStorageAccountName = "storageacount4b"
 $srcStorageAccountContext = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $srcStorageAccountName).Context
 $destStorageAccountContext = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $destStorageAccountName).Context
-$srcContainer = "srcStorageAccountContainer"
-$destContainer = "destStorageAccountContainer"
+$srcContainer = "srccontainer"
+$destContainer = "destcontainer"
 
-#Create containers for Storage Account A and B.
-Try
-{
-   $containerSrcCheck = Get-AzStorageContainer -Context $srcStorageAccountContext
-   $containerDestCheck = Get-AzStorageContainer -Context $destStorageAccountContext
-   Write-Output $containerSrcCheck
-   Write-Output $containerDestCheck
-}
-Catch
-{
-    #Catch any error
-    #The containers are exist
-}
-Finally
-{
-    if(($containerSrcCheck -eq $null) -and ($containerDestCheck -eq $null)){
+#Create containers for Storage Account A and B
+Try {
+   
+    $containerSrcCheck = Get-AzStorageContainer -Context $srcStorageAccountContext
+    $containerDestCheck = Get-AzStorageContainer -Context $destStorageAccountContext
+    
+    if(($containerSrcCheck -eq $null) -and ($containerDestCheck -eq $null)) {
+        
+        #Create containers for Storage Accounts A and B
         New-AzStorageContainer -Name $srcContainer -Context $srcStorageAccountContext -Permission blob
         New-AzStorageContainer -Name $destContainer -Context $destStorageAccountContext -Permission blob
+
+        #Fetch StorageContext
+        $srcStorageKey = Get-AzStorageAccountKey -Name $srcStorageAccountName ` -ResourceGroupName $resourceGroupName 
+        $srcContext = New-AzStorageContext -StorageAccountName $srcStorageAccountName ` -StorageAccountKey $srcStorageKey.Value[0]
+
+        #Upload 100 blobs from local to Storage Account A
+        Get-ChildItem -Path C:\MSEC\blobs | Set-AzStorageBlobContent -Container $srcContainer ` -Context $srcContext -Force
+        
+        #Fetch SAS Tokens to execute azcopy 
+        $sourcecontainerContext = New-AzStorageContainerSASToken -Context $srcStorageAccountContext -Name $srcContainer -Permission racwdl -FullUri
+        $destcontainerContext = New-AzStorageContainerSASToken -Context $destStorageAccountContext -Name $destContainer -Permission racwdl -FullUri
+
+        #Copy 100 blob from Storage Account A to Storage Account B
+        azcopy copy $sourcecontainerContext $destcontainerContext --recursive
     }
 }
-        
-$srcStorageKey = Get-AzStorageAccountKey -Name $srcStorageAccountName `
--ResourceGroupName $resourceGroupName 
-$srcContext = New-AzStorageContext -StorageAccountName $srcStorageAccountName `
--StorageAccountKey $srcStorageKey.Value[0] 
-#Upload 100 blobs
-Get-ChildItem -Path C:\MSEC\blobs | Set-AzStorageBlobContent -Container $srcContainer `
--Context $srcContext -Force
-$sourcecontainerContext = New-AzStorageContainerSASToken -Context $srcStorageAccountContext -Name sourcecontainer -Permission racwdl -FullUri
-$destcontainerContext = New-AzStorageContainerSASToken -Context $destStorageAccountContext -Name destcontainer -Permission racwdl -FullUri
-Write-Output $sourcecontainerContext
-Write-Output $destcontainerContext
-
-#Copy 100 blob
-azcopy copy "https://storageacount4a.blob.core.windows.net/sourcecontainer?"+$sourcecontainerContext "https://storageacount4b.blob.core.windows.net/destcontainer?"+$destcontainerContext --recursive
+Catch {
+  Write-Host "An Error occurred:"
+  Write-Host $_
+}
