@@ -1,6 +1,6 @@
-#Set SubscriptionID for cmdlets to use in the current session. 
-#Ensure running the script against proper subscription.
-$SubscriptionID= "a8108c2b-496c-424d-8347-ecc8afb6384c"		
+#Set SubscriptionID for cmdlets to use in the current session 
+#Ensure running the script against proper subscription
+$SubscriptionID= "a8108c2b-496c-424d-8347-ecc8afb6384c"
 Set-AzContext -Subscription $SubscriptionID
 	
 $resourceGroupName= "morGolanResourceGroup"
@@ -24,11 +24,18 @@ Try {
         New-AzStorageContainer -Name $destContainer -Context $destStorageAccountContext -Permission blob
 
         #Fetch StorageContext
-        $srcStorageKey = Get-AzStorageAccountKey -Name $srcStorageAccountName ` -ResourceGroupName $resourceGroupName 
+        $srcStorageKey = Get-AzStorageAccountKey -Name $srcStorageAccountName ` -ResourceGroupName $resourceGroupName
         $srcContext = New-AzStorageContext -StorageAccountName $srcStorageAccountName ` -StorageAccountKey $srcStorageKey.Value[0]
 
-        #Upload 100 blobs from local to Storage Account A
-        Get-ChildItem -Path C:\MSEC\blobs | Set-AzStorageBlobContent -Container $srcContainer ` -Context $srcContext -Force
+        #Create 100 text blobs
+        $path = "C:\blobs"
+        If(!(Test-Path $path)) {
+            New-Item -Path $path -ItemType "directory"
+            1..100 | foreach { New-Item -Path $path\$_.txt }
+        }
+    
+        #Upload 100 blobs to Storage Account A
+        Get-ChildItem -Path $path | Set-AzStorageBlobContent -Container $srcContainer ` -Context $srcContext -Force
         
         #Fetch SAS Tokens to execute azcopy 
         $sourcecontainerContext = New-AzStorageContainerSASToken -Context $srcStorageAccountContext -Name $srcContainer -Permission racwdl -FullUri
