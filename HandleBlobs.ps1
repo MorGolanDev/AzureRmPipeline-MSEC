@@ -27,7 +27,7 @@ Try {
         $srcContext = New-AzStorageContext -StorageAccountName $srcStorageAccountName ` -StorageAccountKey $srcStorageKey.Value[0]
 
         #Create 100 text blobs
-        $path = "C:\blobs"
+        $path = "C:\MSEC\blobs"
         If(!(Test-Path $path)) {
             New-Item -Path $path -ItemType "directory"
             1..100 | foreach { New-Item -Path $path\$_.txt }
