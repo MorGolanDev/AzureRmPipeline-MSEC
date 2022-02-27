@@ -1,8 +1,6 @@
-#Set SubscriptionID for cmdlets to use in the current session 
-#Ensure running the script against proper subscription
-$SubscriptionID= "a8108c2b-496c-424d-8347-ecc8afb6384c"
-Set-AzContext -Subscription $SubscriptionID
-	
+
+#Global Variables	
+$subscriptionId= "a8108c2b-496c-424d-8347-ecc8afb6384c"
 $resourceGroupName= "morGolanResourceGroup"
 $srcStorageAccountName = "storageacount4a"
 $destStorageAccountName = "storageacount4b"
@@ -11,9 +9,10 @@ $destStorageAccountContext = (Get-AzStorageAccount -ResourceGroupName $resourceG
 $srcContainer = "srccontainer"
 $destContainer = "destcontainer"
 
-#Create containers for Storage Account A and B
 Try {
-   
+    #Ensure the script run against our subscription
+    Set-AzContext -Subscription $subscriptionId
+    
     $containerSrcCheck = Get-AzStorageContainer -Context $srcStorageAccountContext
     $containerDestCheck = Get-AzStorageContainer -Context $destStorageAccountContext
     
