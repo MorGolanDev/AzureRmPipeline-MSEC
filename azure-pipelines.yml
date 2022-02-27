@@ -25,42 +25,45 @@ steps:
 #Task 2
 #Create an ARM template for storage account and create 2 storage accounts
 #Deployment via Azure DevOps Pipeline
-- task: AzurePowerShell@5
+- task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountA `
-      -ResourceGroupName $(resourceGroupName) `
-      -TemplateFile 'StorageAccountTemplate.json' `
-      -TemplateParameterFile 'StorageAccountParametersA.json'
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountB `
-      -ResourceGroupName $(resourceGroupName) `
-      -TemplateFile 'StorageAccountTemplate.json' `
-      -TemplateParameterFile 'StorageAccountParametersB.json'
+      New-AzResourceGroupDeployment `
+        -Name DeploymentCreateStorageAccountA `
+        -ResourceGroupName $(resourceGroupName) `
+        -TemplateFile 'StorageAccountTemplate.json' `
+        -TemplateParameterFile 'StorageAccountParametersA.json'
+      New-AzResourceGroupDeployment `
+        -Name DeploymentCreateStorageAccountB `
+        -ResourceGroupName $(resourceGroupName) `
+        -TemplateFile 'StorageAccountTemplate.json' `
+        -TemplateParameterFile 'StorageAccountParametersB.json'
 
 #Task 3
 #Create an ARM template for a Windows server (VM)
 #Deployment via Azure DevOps Pipeline
-- task: AzurePowerShell@5
+- task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment -Name DeploymentWindowsServerVM `
-      -ResourceGroupName $(resourceGroupName) `
-      -TemplateFile 'WindowsServerTemplate.json' `
-      -TemplateParameterFile 'WindowsServerParameters.json'
+      New-AzResourceGroupDeployment `
+        -Name DeploymentWindowsServerVM `
+        -ResourceGroupName $(resourceGroupName) `
+        -TemplateFile 'WindowsServerTemplate.json' `
+        -TemplateParameterFile 'WindowsServerParameters.json'
 
 
 #Task 5
 #Create, Upload and Copy 100 blobs from Storage account A to B
 #Execute it on the windows server
-- task:  AzurePowerShell@5
+- task: PowerShell@2
   inputs:
     targetType: 'inline'
     script: |
-      Set-AzContext -Subscription $(subscriptionId)
+      Set-AzContext -Subscription $(subscriptionId) `
       $result = Invoke-AzVMRunCommand `
-       -ResourceGroupName $(resourceGroupName) `
-       -VMName $(vmName) `
-       -CommandId RunPowerShellScript `
-       -ScriptPath .\HandleBlobs.ps1
+        -ResourceGroupName $(resourceGroupName) `
+        -VMName $(vmName) `
+        -CommandId RunPowerShellScript `
+        -ScriptPath .\HandleBlobs.ps1
