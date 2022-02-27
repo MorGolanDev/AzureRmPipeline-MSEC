@@ -7,7 +7,7 @@ pool: Default
 #Root level Variables
 variables:
   subscriptionName: "MSEC_Candidates_Homeworks"
-  subscriptionID: "a8108c2b-496c-424d-8347-ecc8afb6384c"
+  subscriptionId: "a8108c2b-496c-424d-8347-ecc8afb6384c"
   resourceGroupName: "morGolanResourceGroup"
   location: "eastus"
   vmName: "simple-vm"
@@ -29,11 +29,13 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountA `
+      New-AzResourceGroupDeployment `
+      -Name DeploymentCreateStorageAccountA `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersA.json'
-      New-AzResourceGroupDeployment -Name DeploymentCreateStorageAccountB `
+      New-AzResourceGroupDeployment `
+      -Name DeploymentCreateStorageAccountB `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'StorageAccountTemplate.json' `
       -TemplateParameterFile 'StorageAccountParametersB.json'
@@ -45,7 +47,8 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      New-AzResourceGroupDeployment ` -Name DeploymentWindowsServerVM `
+      New-AzResourceGroupDeployment ` 
+      -Name DeploymentWindowsServerVM `
       -ResourceGroupName $(resourceGroupName) `
       -TemplateFile 'WindowsServerTemplate.json' `
       -TemplateParameterFile 'WindowsServerParameters.json'
@@ -58,7 +61,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Set-AzContext -Subscription $(subscriptionID)   
+      Set-AzContext -Subscription $(subscriptionId)
       $result = Invoke-AzVMRunCommand `
        -ResourceGroupName $(resourceGroupName) `
        -VMName $(vmName) `
