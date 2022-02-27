@@ -6,7 +6,7 @@
             "value": "eastus"
         },
         "storageAccountName": {
-            "value": "storageacount4b"
+            "value": "storageaccount4b"
         },
         "accountType": {
             "value": "Standard_RAGRS"

@@ -2,8 +2,8 @@
 #Global Variables	
 $subscriptionId= "a8108c2b-496c-424d-8347-ecc8afb6384c"
 $resourceGroupName= "morGolanResourceGroup"
-$srcStorageAccountName = "storageacount4a"
-$destStorageAccountName = "storageacount4b"
+$srcStorageAccountName = "storageaccount4a"
+$destStorageAccountName = "storageaccount4b"
 $srcStorageAccountContext = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $srcStorageAccountName).Context
 $destStorageAccountContext = (Get-AzStorageAccount -ResourceGroupName $resourceGroupName -Name $destStorageAccountName).Context
 $srcContainer = "srccontainer"
