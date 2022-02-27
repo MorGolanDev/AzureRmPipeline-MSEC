@@ -61,7 +61,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      Set-AzContext -Subscription $(subscriptionId) `
+      Set-AzContext -Subscription $(subscriptionId)
       $result = Invoke-AzVMRunCommand `
         -ResourceGroupName $(resourceGroupName) `
         -VMName $(vmName) `

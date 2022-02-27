@@ -1,5 +1,5 @@
 
-#Global Variables	
+#Global Variables
 $subscriptionId= "a8108c2b-496c-424d-8347-ecc8afb6384c"
 $resourceGroupName= "morGolanResourceGroup"
 $srcStorageAccountName = "storageaccount4a"
