@@ -53,7 +53,6 @@ steps:
         -TemplateFile 'WindowsServerTemplate.json' `
         -TemplateParameterFile 'WindowsServerParameters.json'
 
-
 #Task 5
 #Create, Upload and Copy 100 blobs from Storage account A to B
 #Execute it on the windows server

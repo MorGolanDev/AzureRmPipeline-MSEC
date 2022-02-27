@@ -10,7 +10,7 @@
 - Script that create, upload and copy 100 blobs from Storage account A to Storage account B, executed on the Windows server as part of  above CD pipeline tool.
 - Monitor Dashboard for the described system.
 
-Storage Account Azure DevOps Pipeline [![Build Status](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_apis/build/status/MorGolanDev.AzureRmPipelineMSEC%20(2)?branchName=main)](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_build/latest?definitionId=3&branchName=main)
+Storage Account Azure DevOps Pipeline [![Build Status](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_apis/build/status/MorGolanDev.AzureRmPipelineMSEC?branchName=main)](https://dev.azure.com/morgolan10/AzureRmPipelineMSEC/_build/latest?definitionId=16&branchName=main)
 
 ![Virtual Machine](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/vm.jpg?raw=true)
 ![Storage Account](https://github.com/MorGolanDev/AzureRmPipelineMSEC/blob/main/images/storageaccount.jpg?raw=true)
@@ -44,3 +44,6 @@ To build your code or deploy your software using Azure Pipelines, you need at le
 
 #### **Self-hosted agents**
 An agent that you set up and manage on your own to run jobs is a self-hosted agent. You can use self-hosted agents in Azure Pipelines or Azure DevOps Server.
+
+### **Azure Dashboards**
+Azure dashboards are useful in providing a single pane of glass over your Azure infrastructure and services. While a workbook provides richer functionality, a dashboard can combine Azure Monitor data with data from other Azure services.
